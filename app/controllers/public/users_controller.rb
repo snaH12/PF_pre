@@ -1,22 +1,34 @@
 class Public::UsersController < ApplicationController
-  before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :ensure_current_user
   
-  
-  
-  def index
-    @user = current_user
-    @users = User.all
-    @post = Post.new
-  end
-
   def show
-    @user = User.find(params[:id])
-    @posts = @user.posts
-    @post = Post.new
-  end
+    @user = User.find(current_user.id)
+  end 
 
   def edit
-    @user = User.find(params[:id])
+    @user = User.find(current_user.id)
   end
+  
+  def update
+    @user = User.find(current_user.id)
+    if @user.update(user_params)
+     flash[:notice] = "変更を保存しました。"
+     redirect_to user_path(current_user.id)
+    else
+     render :edit
+    end 
+  end
+  
+  private
+    def user_params
+      params.require(:user).permit(:name, :birthplace, :introduction)
+    end
+    
+    def ensure_current_user
+     if !user_signed_in?
+       #ログイン/未ログインの処理 未ログインならトップへ
+      redirect_to root_path
+     end 
+    end 
   
 end

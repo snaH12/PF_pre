@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+ 
    root 'homes#top'
    
    devise_for :users,skip: [:passwords], controllers: {
@@ -9,6 +10,7 @@ Rails.application.routes.draw do
  
   scope module: :public do
     resources :users
+    resources :regions,only: [:index,:show]
     resources :posts
   end
   

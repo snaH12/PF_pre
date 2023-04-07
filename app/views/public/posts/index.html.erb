@@ -1,3 +1,23 @@
-<h2>投稿一覧</h2>
-<h1>Public::Posts#index</h1>
-<p>Find me in app/views/public/posts/index.html.erb</p>
+<div class="container" id="item-warpper">
+  <div class="row">
+    <div class="col offset-md-1">
+      <div style="display: flex; align-items: flex-end;">
+        <h2 style="margin-right: 10px;">投稿一覧</h2>
+        <p>（全<%= @posts.count %>件）</p>
+        <%= render 'regions/index' ,regions: @regions %>
+      </div>
+      <div class="d-md-flex flex-wrap">
+        <% @posts.each do |post|%>
+          <div class="card m-2 text-center card-warpper">
+            <%= link_to post_path(post.id) do %>
+              <%= image_tag post.get_image(100,100), class:"card-image-top" %>
+              <div class="card-body text-dark py-2 font-weight-bold ">
+                <%= link_to post.title, post_path(post.id), class: "card-title mb-2" %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

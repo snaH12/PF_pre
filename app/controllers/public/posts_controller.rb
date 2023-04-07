@@ -8,13 +8,19 @@ class Public::PostsController < ApplicationController
   
   def create
     post = Post.new(post_params)
-    post.save
-    redirect_to post_path
+    if post.save
+      redirect_to post_path(post), notice: "You have created book successfully."
+    else
+      @post = Post.new
+      @posts = Post.all
+      render 'index'
+    end
   end
   
   def index
-    @user = current_user
     @post = Post.new
+    @posts = Post.all
+    @regions = Region.all
   end
 
   def show

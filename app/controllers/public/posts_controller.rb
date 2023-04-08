@@ -18,13 +18,11 @@ class Public::PostsController < ApplicationController
   end
   
   def index
-    @post = Post.new
     @posts = Post.all
     @regions = Region.all
   end
 
   def show
-    @Post = Post.new
     @post = Post.find(params[:id])
   end
 

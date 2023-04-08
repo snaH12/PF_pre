@@ -1,7 +1,10 @@
 <div class="container">
   <div class="row no-gutters">
-    <div class="col-md-10 mx-sm-auto text-center shadow-lg">
+    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto" style="margin-top: 50px;">
         <h2>マイページ</h2>
+        <diV class="d-flex">
+            <%= image_tag @user.get_profile_image(100,100) %>
+        <div class="font-weight-bold mb-3" style="margin-left: 50px;">    
         <table class="table table-bordered border-primary">
             <tr>
                 <td class="table-active">名前</td>
@@ -23,8 +26,12 @@
             </tr>
         </table>
         <div class="mt-10 offset-md-8">
+            <% if @user.id == current_user.id %>
             <%= link_to "編集する",  edit_user_path(@user), class: 'btn btn-success' %>
+            <% end %>
         </div>
+        </div>
+        </diV>
     </div>
   </div>
 </div>        
